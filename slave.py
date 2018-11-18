@@ -4,7 +4,7 @@ import time
 
 import rpyc
 
-SLAVE_ID = os.getpid()
+from shared import *
 
 
 def create_connection():
@@ -19,7 +19,7 @@ def create_connection():
 
 
 def prepare_fruit(id_, fruit, t):
-    print(f"[{SLAVE_ID}]: 1 {fruit} (id={id_}) en préparation ({t}s)...")
+    log_slave(f"1 {fruit} en préparation ({t}s)...", id_)
     time.sleep(t)
     return f"1 {fruit} préparé(e)"
 
@@ -39,10 +39,10 @@ def run(conn):
     while task:
         id_, fruit, t = task
 
-        print(f"[{SLAVE_ID}] < 1 {fruit} (id={id_}) à préparer.")
+        log_slave(f"< 1 {fruit}) à préparer.", id_)
         prepared_fruit = prepare_fruit(id_, fruit, t)
 
-        print(f"[{SLAVE_ID}] > 1 {fruit} (id={id_}) prêt(e).")
+        log_slave(f"> 1 {fruit} prêt(e).", id_)
         send_result(conn, task, prepared_fruit)
 
         task = ask_task(conn)

@@ -3,6 +3,8 @@ import time
 
 import rpyc
 
+from shared import *
+
 
 def prepare_distributed(ingredients):
     """Retourne un service RPC appelé par les esclaves pour demander du travail
@@ -22,7 +24,7 @@ def prepare_distributed(ingredients):
 
     class MasterService(rpyc.Service):
         def exposed_receive_result(self, task, result):
-            print(f"[MAITRE] < {result} reçu(e) (task {task[0]}).")
+            log_master(f"< {result} reçu(e)", task[0])
 
             with lock:
                 tasks_being_done.remove(task)
@@ -45,7 +47,7 @@ def prepare_distributed(ingredients):
                 with lock:
                     tasks_being_done.append(task)
                 id_, fruit, _ = task
-                print(f"[MAITRE] > 1 {fruit} (id={id_}) envoyé(e) à la préparation.")
+                log_master(f"> 1 {fruit} envoyé(e) à la préparation", id_)
             return task
     return MasterService
 
