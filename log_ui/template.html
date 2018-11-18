@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8" />
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <div id="master-messages">
+  {{ master_messages }}
+  </div>
+
+  <div id="slaves-messages">
+  {{ slaves_messages }}
+  </div>
+
+  <div id="messages-header">
+    <div class="container">
+        <h2>Maître</h2>
+    </div>
+    <div class="container">
+        <h2>Esclaves</h2>
+    </div>
+  </div>
+  <div id="messages"></div>
+
+  <div id="footer">
+  {{ footer }}
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
