@@ -1,10 +1,28 @@
+body {
+  background: #f7f7f7;
+  color: #424242;
+  font-size: 14px;
+  font-family: Merriweather,Liberation Serif,Times New Roman,Times,Georgia,FreeSerif,serif;
+}
+
 h2 {
   margin: 0px;
 }
 
-#messages {
-  height: 500px;
-  font-size: 12px;
+#messages-header .container {
+  display: inline-block;
+  width: 49%;
+  vertical-align: top;
+  margin-bottom: 20px;
+}
+
+#messages-header h2 {
+  margin: 0;
+  font-size: 20px;
+  font-weight: normal;
+  color: #084460;
+  width: 80%;
+  border-bottom: 1px dashed #084460;
 }
 
 *[id$="-messages"] {
@@ -16,10 +34,10 @@ h2 {
 }
 
 .message.slaves {
-    position: relative;
-    left: 50%;
+  position: relative;
+  left: 50%;
 }
 
 .message.active {
-    font-weight: bold;
+  color: #ea9408;
 }
