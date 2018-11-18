@@ -4,9 +4,28 @@ function getY(time, minTime, maxTime, height) {
 
 function addMessage(msg, container) {
     var div = document.createElement("div");
+    div.dataset.task = msg.task;
     div.innerHTML = msg.text;
     div.className = "message " + msg.type;
     container.appendChild(div);
+
+    div.addEventListener("mouseover", function() {
+        for (var div of document.querySelectorAll(".message[data-task='" + msg.task + "']")) {
+            div.className = div.className + " active";
+        }
+    });
+
+    div.addEventListener("mouseout", function() {
+        var classes, index;
+        for (var div of document.querySelectorAll(".message.active")) {
+            classes = div.className.split(" ");
+            index = classes.indexOf("active");
+            if (index != -1) {
+                classes.splice(index, 1);
+            }
+            div.className = classes.join(" ");
+        }
+    });
 }
 
 function parseMsg(text, type) {
@@ -23,6 +42,7 @@ function parseMsg(text, type) {
         type,
         time,
         text: parts[0],
+        task: parts[3],
     };
 }
 

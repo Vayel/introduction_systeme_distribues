@@ -19,3 +19,7 @@ h2 {
     position: relative;
     left: 50%;
 }
+
+.message.active {
+    font-weight: bold;
+}
