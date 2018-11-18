@@ -57,10 +57,12 @@ h2 {
   flex-grow: 1;
 }
 
-.message .direction {
+.message .label {
   font-size: 20px;
   width: 30px;
   font-weight: bold;
+  position: relative;
+  top: -4px;
 }
 
 #footer {

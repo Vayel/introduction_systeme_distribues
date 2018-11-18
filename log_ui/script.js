@@ -1,8 +1,9 @@
 var MASTER = "master", SLAVES = "slaves";
-var DIRECTIONS = {
+var LABELS = {
     IN: "»",
     OUT: "«",
-    NO: "-",
+    WORKING: "...",
+    ERROR: "!!!",
 };
 var TEXT_TO_EMOJI = {
     "pomme": "&#127822;",
@@ -21,7 +22,7 @@ function pad(n, width, z) {
 
 function replaceByEmoji(text) {
     for (var name in TEXT_TO_EMOJI) {
-        text = text.replace(name, TEXT_TO_EMOJI[name]);
+        text = text.replace(new RegExp(name, "g"), TEXT_TO_EMOJI[name]);
     }
     return text;
 }
@@ -42,11 +43,11 @@ function addMessage(msg, container) {
     text.innerHTML = html;
     text.className = "text";
 
-    var direction = document.createElement("div");
-    direction.className = "direction";
-    direction.innerHTML = msg.direction;
+    var label = document.createElement("div");
+    label.className = "label";
+    label.innerHTML = msg.label;
 
-    wrapper.appendChild(direction);
+    wrapper.appendChild(label);
     wrapper.appendChild(text);
     container.appendChild(wrapper);
 
@@ -70,7 +71,7 @@ function addMessage(msg, container) {
 }
 
 function parseMsg(text, type) {
-    // [timestamp][agent][task][direction]text
+    // [timestamp][agent][task][label]text
     var rgTimestamp = "\\[([0-9\\.]+)\\]",
         rgAgent = "\\[([\\w-]+)\\]",
         rgTask = "\\[([\\w-]+)\\]",
@@ -78,14 +79,14 @@ function parseMsg(text, type) {
         rgText = "(.+)";
     var msgRegexp = new RegExp("^" + rgTimestamp + rgAgent + rgTask + rgDirection + rgText);
     var parts = text.match(msgRegexp);
-    var direction = parts[4];
+    var label = parts[4];
 
     return {
         type,
         timestamp: parseFloat(parts[1]) * 1000,
         agent: parts[2],
         task: parts[3],
-        direction: direction ? DIRECTIONS[direction] : DIRECTIONS.NO,
+        label: label ? LABELS[label] : LABELS.NO,
         text: parts[5].trim(),
     };
 }
@@ -103,7 +104,12 @@ function listMessages(container, type) {
     return messages;
 }
 
-function addEmojisToFooter(footer) {
+function editFooter(footer) {
+    if (!footer.innerHTML.trim()) {
+        footer.innerHTML = "Snif, la salade de fruits n'a pas pu être terminée...";
+        return;
+    }
+
     var emojis = [];
     for (var name in TEXT_TO_EMOJI) {
         emojis.push(TEXT_TO_EMOJI[name]);
@@ -139,4 +145,4 @@ for(var msg of messages) {
     addMessage(msg, messagesContainer);
 }
 
-addEmojisToFooter(document.getElementById("footer"));
+editFooter(document.getElementById("footer"));

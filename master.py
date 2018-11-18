@@ -24,7 +24,7 @@ def prepare_distributed(ingredients):
 
     class MasterService(rpyc.Service):
         def exposed_receive_result(self, task, result):
-            log_master(f"{result} reçue", task[0], out=False)
+            log_master(f"{result} reçue", task[0], IN_LABEL)
 
             with lock:
                 tasks_being_done.remove(task)
@@ -51,7 +51,7 @@ def prepare_distributed(ingredients):
                 with lock:
                     tasks_being_done.append(task)
                 id_, fruit, _ = task
-                log_master(f"1 {fruit} envoyée à la préparation", id_, out=True)
+                log_master(f"1 {fruit} envoyée à la préparation", id_, OUT_LABEL)
             return task
     return MasterService
 

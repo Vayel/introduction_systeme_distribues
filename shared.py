@@ -3,6 +3,12 @@ from random import shuffle
 import os
 
 
+IN_LABEL = "IN"
+OUT_LABEL = "OUT"
+WORKING_LABEL = "WORKING"
+ERROR_LABEL = "ERROR"
+
+
 # Une liste d'ingrédients. Chaque ingrédient est un couple
 # (nom, temps de préparation en secondes). Les temps inscrits ici ne
 # sont pas réalistes.
@@ -22,15 +28,9 @@ INGREDIENTS = [
 shuffle(INGREDIENTS)
 
 
-def log(agent, msg, task, out=None):
+def log(agent, msg, task, label):
     now = dt.datetime.now().timestamp()
-    if out is None:
-        direction = ""
-    elif out:
-        direction = "OUT"
-    else:
-        direction = "IN"
-    print(f"[{now}][{agent}][T-{task:02d}][{direction}] {msg}")
+    print(f"[{now}][{agent}][T-{task:02d}][{label}] {msg}")
 
 
 def log_master(*args, **kwargs):
