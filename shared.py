@@ -2,14 +2,20 @@ import datetime as dt
 import os
 
 
-def log(msg, agent, task):
+def log(agent, msg, task, out=None):
     now = dt.datetime.now().timestamp()
-    print(f"[{now}][{agent}][T-{task:02d}] {msg}")
+    if out is None:
+        direction = ""
+    elif out:
+        direction = "OUT"
+    else:
+        direction = "IN"
+    print(f"[{now}][{agent}][T-{task:02d}][{direction}] {msg}")
 
 
-def log_master(msg, task):
-    log(msg, "MAITRE", task)
+def log_master(*args, **kwargs):
+    log("MAITRE", *args, **kwargs)
 
 
-def log_slave(msg, task):
-    log(msg, f"S-{os.getpid()}", task)
+def log_slave(*args, **kwargs):
+    log(f"E-{os.getpid()}", *args, **kwargs)

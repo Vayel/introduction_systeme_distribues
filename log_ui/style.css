@@ -29,6 +29,11 @@ h2 {
   display: none;
 }
 
+#messages {
+  max-height: 400px;
+  overflow: auto;
+}
+
 .message {
   width: 45%;
 }
@@ -40,4 +45,22 @@ h2 {
 
 .message.active {
   color: #ea9408;
+}
+
+.message div {
+  display: inline-block;
+  vertical-align: middle;
+}
+
+.message .direction {
+  font-size: 20px;
+  width: 20px;
+}
+
+#footer {
+  border-top: 1px dashed #084460;
+  margin: 15px auto 0 auto;
+  padding: 15px 5px 0 5px;
+  width: 300px;
+  text-align: center;
 }

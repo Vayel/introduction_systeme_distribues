@@ -39,10 +39,10 @@ def run(conn):
     while task:
         id_, fruit, t = task
 
-        log_slave(f"< 1 {fruit}) à préparer.", id_)
+        log_slave(f"1 {fruit} à préparer.", id_, out=False)
         prepared_fruit = prepare_fruit(id_, fruit, t)
 
-        log_slave(f"> 1 {fruit} prêt(e).", id_)
+        log_slave(f"1 {fruit} prêt(e).", id_, out=True)
         send_result(conn, task, prepared_fruit)
 
         task = ask_task(conn)

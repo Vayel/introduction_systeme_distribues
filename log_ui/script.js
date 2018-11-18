@@ -1,48 +1,90 @@
-function getY(time, minTime, maxTime, height) {
-  return (time - minTime) / (maxTime - minTime) * height;
+var MASTER = "master", SLAVES = "slaves";
+var DIRECTIONS = {
+    IN: "«",
+    OUT: "»",
+    NO: "-",
+};
+var TEXT_TO_UNICODE = {
+
+};
+
+function pad(n, width, z) {
+  z = z || "0";
+  n = n + "";
+  return n.length >= width ? n : new Array(width - n.length + 1).join(z) + n;
+}
+
+function getDirectionIcon(direction, type) {
+    if (direction == DIRECTIONS.NO) {
+        return DIRECTIONS.NO;
+    }
+    if (type == MASTER) {
+        return (direction == DIRECTIONS.IN) ? DIRECTIONS.IN : DIRECTIONS.OUT;
+    }
+    return (direction == DIRECTIONS.IN) ? DIRECTIONS.OUT : DIRECTIONS.IN;
 }
 
 function addMessage(msg, container) {
-    var div = document.createElement("div");
-    div.dataset.task = msg.task;
-    div.innerHTML = msg.text;
-    div.className = "message " + msg.type;
-    container.appendChild(div);
+    var date = new Date(msg.timestamp);
+    var html = "" + pad(date.getMinutes(), 2) + "m" + pad(date.getSeconds(), 2) + "s - ";
+    if (msg.type == SLAVES) {
+        html += "(" + msg.agent + ") - ";
+    }
+    html += "(" + msg.task + ") : " + msg.text;
 
-    div.addEventListener("mouseover", function() {
-        for (var div of document.querySelectorAll(".message[data-task='" + msg.task + "']")) {
-            div.className = div.className + " active";
+    var wrapper = document.createElement("div");
+    wrapper.dataset.task = msg.task;
+    wrapper.className = "message " + msg.type;
+
+    var text = document.createElement("div");
+    text.innerHTML = html;
+    text.className = "text";
+
+    var direction = document.createElement("div");
+    direction.className = "direction";
+    direction.innerHTML = getDirectionIcon(msg.direction, msg.type);
+
+    wrapper.appendChild(direction);
+    wrapper.appendChild(text);
+    container.appendChild(wrapper);
+
+    wrapper.addEventListener("mouseover", function() {
+        for (var wrapper of document.querySelectorAll(".message[data-task='" + msg.task + "']")) {
+            wrapper.className = wrapper.className + " active";
         }
     });
 
-    div.addEventListener("mouseout", function() {
+    wrapper.addEventListener("mouseout", function() {
         var classes, index;
-        for (var div of document.querySelectorAll(".message.active")) {
-            classes = div.className.split(" ");
+        for (var wrapper of document.querySelectorAll(".message.active")) {
+            classes = wrapper.className.split(" ");
             index = classes.indexOf("active");
             if (index != -1) {
                 classes.splice(index, 1);
             }
-            div.className = classes.join(" ");
+            wrapper.className = classes.join(" ");
         }
     });
 }
 
 function parseMsg(text, type) {
-    // [time][agent][task]text
-    var msgRegexp = /^\[([0-9:\.]+)\]\[([\w-]+)\]\[([\w-]+)\](.+)/;
+    // [timestamp][agent][task][direction]text
+    var rgTimestamp = "\\[([0-9\\.]+)\\]",
+        rgAgent = "\\[([\\w-]+)\\]",
+        rgTask = "\\[([\\w-]+)\\]",
+        rgDirection = "\\[(\\w*)\\]",
+        rgText = "(.+)";
+    var msgRegexp = new RegExp("^" + rgTimestamp + rgAgent + rgTask + rgDirection + rgText);
     var parts = text.match(msgRegexp);
-
-    var timeStr = parts[1];
-    var timeRegexp = /^([0-9]+):([0-9]+)\.([0-9]+)/;
-    var timeParts = timeStr.match(timeRegexp);
-    var time = new Date(0, 0, 0, 0, parseInt(timeParts[1]), parseInt(timeParts[2]), parseInt(timeParts[3])).getTime();
+    var direction = parts[4];
 
     return {
         type,
-        time,
-        text: parts[0],
+        timestamp: parseFloat(parts[1]) * 1000,
+        agent: parts[2],
         task: parts[3],
+        direction: direction ? DIRECTIONS[direction] : DIRECTIONS.NO,
+        text: parts[5].trim(),
     };
 }
 
@@ -60,7 +102,6 @@ function listMessages(container, type) {
 }
 
 
-var MASTER = "master", SLAVES = "slaves";
 var containers = {};
 containers[MASTER] = document.getElementById(MASTER + "-messages");
 containers[SLAVES] = document.getElementById(SLAVES + "-messages");
@@ -71,7 +112,7 @@ for (var type in containers) {
 }
 
 messages.sort(function(a, b) {
-    var delta = a.time - b.time;
+    var delta = a.timestamp - b.timestamp;
     if (!delta) {
         return (a.type < b.type) ? -1 : 1; 
     }
