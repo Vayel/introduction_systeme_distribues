@@ -21,7 +21,7 @@ def create_connection():
 def prepare_fruit(id_, fruit, t):
     log_slave(f"1 {fruit} en préparation ({t}s)...", id_)
     time.sleep(t)
-    return f"1 {fruit} préparé(e)"
+    return f"1 {fruit} préparée"
 
 
 def send_result(conn, task, result):
@@ -39,10 +39,10 @@ def run(conn):
     while task:
         id_, fruit, t = task
 
-        log_slave(f"1 {fruit} à préparer.", id_, out=False)
+        log_slave(f"1 {fruit} à préparer reçue", id_, out=False)
         prepared_fruit = prepare_fruit(id_, fruit, t)
 
-        log_slave(f"1 {fruit} prêt(e).", id_, out=True)
+        log_slave(f"1 {fruit} prête envoyée", id_, out=True)
         send_result(conn, task, prepared_fruit)
 
         task = ask_task(conn)

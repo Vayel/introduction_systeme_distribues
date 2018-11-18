@@ -55,6 +55,7 @@ h2 {
 .message .direction {
   font-size: 20px;
   width: 20px;
+  font-weight: bold;
 }
 
 #footer {

@@ -1,11 +1,16 @@
 var MASTER = "master", SLAVES = "slaves";
 var DIRECTIONS = {
-    IN: "«",
-    OUT: "»",
+    IN: "»",
+    OUT: "«",
     NO: "-",
 };
-var TEXT_TO_UNICODE = {
-
+var TEXT_TO_EMOJI = {
+    "pomme": "&#127822;",
+    "poire": "&#127824;",
+    "banane": "&#127820;",
+    "cerise": "&#127826;",
+    "pêche": "&#127825;",
+    "pastèque": "&#127817;",
 };
 
 function pad(n, width, z) {
@@ -14,23 +19,20 @@ function pad(n, width, z) {
   return n.length >= width ? n : new Array(width - n.length + 1).join(z) + n;
 }
 
-function getDirectionIcon(direction, type) {
-    if (direction == DIRECTIONS.NO) {
-        return DIRECTIONS.NO;
+function replaceByEmoji(text) {
+    for (var name in TEXT_TO_EMOJI) {
+        text = text.replace(name, TEXT_TO_EMOJI[name]);
     }
-    if (type == MASTER) {
-        return (direction == DIRECTIONS.IN) ? DIRECTIONS.IN : DIRECTIONS.OUT;
-    }
-    return (direction == DIRECTIONS.IN) ? DIRECTIONS.OUT : DIRECTIONS.IN;
+    return text;
 }
 
 function addMessage(msg, container) {
     var date = new Date(msg.timestamp);
-    var html = "" + pad(date.getMinutes(), 2) + "m" + pad(date.getSeconds(), 2) + "s - ";
+    var html = "" + pad(date.getMinutes(), 2) + ":" + pad(date.getSeconds(), 2) + " - ";
     if (msg.type == SLAVES) {
         html += "(" + msg.agent + ") - ";
     }
-    html += "(" + msg.task + ") : " + msg.text;
+    html += "(" + msg.task + ") : " + replaceByEmoji(msg.text);
 
     var wrapper = document.createElement("div");
     wrapper.dataset.task = msg.task;
@@ -42,7 +44,7 @@ function addMessage(msg, container) {
 
     var direction = document.createElement("div");
     direction.className = "direction";
-    direction.innerHTML = getDirectionIcon(msg.direction, msg.type);
+    direction.innerHTML = msg.direction;
 
     wrapper.appendChild(direction);
     wrapper.appendChild(text);
@@ -101,6 +103,19 @@ function listMessages(container, type) {
     return messages;
 }
 
+function addEmojisToFooter(footer) {
+    var emojis = [];
+    for (var name in TEXT_TO_EMOJI) {
+        emojis.push(TEXT_TO_EMOJI[name]);
+    } 
+
+    var div = document.createElement("div");
+    div.innerHTML = emojis.join(" ");
+    div.style.marginBottom = "5px";
+    div.style.fontSize = "18px";
+    footer.insertBefore(div, footer.firstChild);
+}
+
 
 var containers = {};
 containers[MASTER] = document.getElementById(MASTER + "-messages");
@@ -123,3 +138,5 @@ var messagesContainer = document.getElementById("messages");
 for(var msg of messages) {
     addMessage(msg, messagesContainer);
 }
+
+addEmojisToFooter(document.getElementById("footer"));
