@@ -39,7 +39,7 @@ def prepare_distributed(ingredients):
     lock = Lock()
     timeout = max((x[1] for x in ingredients)) + 2
 
-    start_time = time.time()
+    start_time = None
 
     class MasterService(rpyc.Service):
         def exposed_receive_result(self, task, result):
@@ -60,6 +60,10 @@ def prepare_distributed(ingredients):
                 print(f"Temps de préparation : {end_time - start_time:.1f}s.")
 
         def exposed_give_task(self):
+            nonlocal start_time
+            if start_time is None:
+                start_time = time.time()
+
             try:
                 with lock:
                     task = tasks_to_do.pop()

@@ -3,7 +3,7 @@ import os
 
 
 def log(msg, agent, task):
-    now = dt.datetime.now().strftime("%M:%S.%f")
+    now = dt.datetime.now().timestamp()
     print(f"[{now}][{agent}][T-{task:02d}] {msg}")
 
 
