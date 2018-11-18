@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8" />
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <div id="master-messages">
+  [1542564498.521064][MAITRE][T-10][OUT] 1 cerise envoyée à la préparation
+[1542564498.535781][MAITRE][T-09][OUT] 1 pomme envoyée à la préparation
+[1542564498.544484][MAITRE][T-08][OUT] 1 pomme envoyée à la préparation
+[1542564499.523545][MAITRE][T-10][IN] 1 cerise préparée reçue. En cours : pomme (T-9), pomme (T-8)
+[1542564499.525506][MAITRE][T-07][OUT] 1 pêche envoyée à la préparation
+[1542564501.549915][MAITRE][T-08][IN] 1 pomme préparée reçue. En cours : pomme (T-9), pêche (T-7)
+[1542564501.551296][MAITRE][T-06][OUT] 1 banane envoyée à la préparation
+[1542564502.529351][MAITRE][T-07][IN] 1 pêche préparée reçue. En cours : pomme (T-9), banane (T-6)
+[1542564502.53073][MAITRE][T-05][OUT] 1 banane envoyée à la préparation
+[1542564503.555749][MAITRE][T-06][IN] 1 banane préparée reçue. En cours : pomme (T-9), banane (T-5)
+[1542564503.55739][MAITRE][T-04][OUT] 1 pastèque envoyée à la préparation
+[1542564504.535395][MAITRE][T-05][IN] 1 banane préparée reçue. En cours : pomme (T-9), pastèque (T-4)
+[1542564504.536169][MAITRE][T-09][WORKING] remet la pomme dans le panier à préparer
+[1542564504.537421][MAITRE][T-09][OUT] 1 pomme envoyée à la préparation
+[1542564507.542727][MAITRE][T-09][IN] 1 pomme préparée reçue. En cours : pastèque (T-4)
+[1542564507.544653][MAITRE][T-03][OUT] 1 poire envoyée à la préparation
+[1542564509.549536][MAITRE][T-03][IN] 1 poire préparée reçue. En cours : pastèque (T-4)
+[1542564509.551487][MAITRE][T-02][OUT] 1 poire envoyée à la préparation
+[1542564509.55801][MAITRE][T-04][WORKING] remet la pastèque dans le panier à préparer
+[1542564511.556221][MAITRE][T-02][IN] 1 poire préparée reçue. En cours : rien
+[1542564511.557807][MAITRE][T-04][OUT] 1 pastèque envoyée à la préparation
+[1542564515.563644][MAITRE][T-04][IN] 1 pastèque préparée reçue. En cours : rien
+[1542564515.565104][MAITRE][T-01][OUT] 1 pêche envoyée à la préparation
+[1542564518.569116][MAITRE][T-01][IN] 1 pêche préparée reçue. En cours : rien
+[1542564518.570476][MAITRE][T-00][OUT] 1 cerise envoyée à la préparation
+[1542564519.57298][MAITRE][T-00][IN] 1 cerise préparée reçue. En cours : rien
+  </div>
+
+  <div id="slaves-messages">
+  [1542564498.521448][E-21530][T-10][IN] 1 cerise à préparer reçue
+[1542564498.521557][E-21530][T-10][WORKING] 1 cerise en préparation (1s)
+[1542564498.536171][E-21529][T-09][IN] 1 pomme à préparer reçue
+[1542564498.536215][E-21529][T-09][WORKING] 1 pomme en préparation (3s)
+[1542564498.544855][E-21528][T-08][IN] 1 pomme à préparer reçue
+[1542564498.544891][E-21528][T-08][WORKING] 1 pomme en préparation (3s)
+[1542564499.521798][E-21530][T-10][OUT] 1 cerise prête envoyée
+[1542564499.526724][E-21530][T-07][IN] 1 pêche à préparer reçue
+[1542564499.526807][E-21530][T-07][WORKING] 1 pêche en préparation (3s)
+[1542564501.537771][E-21529][T-09][ERROR] alerte, une panne ! 1 pomme en préparation
+[1542564501.547703][E-21528][T-08][OUT] 1 pomme prête envoyée
+[1542564501.551681][E-21528][T-06][IN] 1 banane à préparer reçue
+[1542564501.551719][E-21528][T-06][WORKING] 1 banane en préparation (2s)
+[1542564502.527691][E-21530][T-07][OUT] 1 pêche prête envoyée
+[1542564502.531736][E-21530][T-05][IN] 1 banane à préparer reçue
+[1542564502.531808][E-21530][T-05][WORKING] 1 banane en préparation (2s)
+[1542564503.553891][E-21528][T-06][OUT] 1 banane prête envoyée
+[1542564503.558441][E-21528][T-04][IN] 1 pastèque à préparer reçue
+[1542564503.558528][E-21528][T-04][WORKING] 1 pastèque en préparation (4s)
+[1542564504.533932][E-21530][T-05][OUT] 1 banane prête envoyée
+[1542564504.538475][E-21530][T-09][IN] 1 pomme à préparer reçue
+[1542564504.53856][E-21530][T-09][WORKING] 1 pomme en préparation (3s)
+[1542564507.541047][E-21530][T-09][OUT] 1 pomme prête envoyée
+[1542564507.54563][E-21530][T-03][IN] 1 poire à préparer reçue
+[1542564507.545708][E-21530][T-03][WORKING] 1 poire en préparation (2s)
+[1542564507.560985][E-21528][T-04][ERROR] alerte, une panne ! 1 pastèque en préparation
+[1542564509.547883][E-21530][T-03][OUT] 1 poire prête envoyée
+[1542564509.552627][E-21530][T-02][IN] 1 poire à préparer reçue
+[1542564509.552739][E-21530][T-02][WORKING] 1 poire en préparation (2s)
+[1542564511.554429][E-21530][T-02][OUT] 1 poire prête envoyée
+[1542564511.55861][E-21530][T-04][IN] 1 pastèque à préparer reçue
+[1542564511.5587][E-21530][T-04][WORKING] 1 pastèque en préparation (4s)
+[1542564515.562175][E-21530][T-04][OUT] 1 pastèque prête envoyée
+[1542564515.5661][E-21530][T-01][IN] 1 pêche à préparer reçue
+[1542564515.566198][E-21530][T-01][WORKING] 1 pêche en préparation (3s)
+[1542564518.567733][E-21530][T-01][OUT] 1 pêche prête envoyée
+[1542564518.571221][E-21530][T-00][IN] 1 cerise à préparer reçue
+[1542564518.571289][E-21530][T-00][WORKING] 1 cerise en préparation (1s)
+[1542564519.572394][E-21530][T-00][OUT] 1 cerise prête envoyée
+  </div>
+
+  <div id="messages-header">
+    <div class="container">
+        <h2>Maître</h2>
+    </div>
+    <div class="container">
+        <h2>Esclaves</h2>
+    </div>
+  </div>
+  <div id="messages"></div>
+
+  <div id="footer">
+  La salade est prête ! Bonne dégustation !<br>Temps de préparation : 21.1s
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>

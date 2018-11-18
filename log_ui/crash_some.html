@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8" />
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <div id="master-messages">
+  [1542563601.296546][MAITRE][T-10][OUT] 1 banane envoyée à la préparation
+[1542563601.300325][MAITRE][T-09][OUT] 1 cerise envoyée à la préparation
+[1542563601.309256][MAITRE][T-08][OUT] 1 poire envoyée à la préparation
+[1542563602.302882][MAITRE][T-09][IN] 1 cerise préparée reçue. En cours : banane (T-10), poire (T-8)
+[1542563602.304738][MAITRE][T-07][OUT] 1 poire envoyée à la préparation
+[1542563603.311796][MAITRE][T-08][IN] 1 poire préparée reçue. En cours : banane (T-10), poire (T-7)
+[1542563603.312394][MAITRE][T-06][OUT] 1 banane envoyée à la préparation
+[1542563605.315077][MAITRE][T-06][IN] 1 banane préparée reçue. En cours : banane (T-10), poire (T-7)
+[1542563605.315892][MAITRE][T-05][OUT] 1 pomme envoyée à la préparation
+[1542563608.319695][MAITRE][T-05][IN] 1 pomme préparée reçue. En cours : banane (T-10), poire (T-7)
+[1542563608.320282][MAITRE][T-04][OUT] 1 pomme envoyée à la préparation
+[1542563611.321918][MAITRE][T-04][IN] 1 pomme préparée reçue. En cours : banane (T-10), poire (T-7)
+[1542563611.322946][MAITRE][T-03][OUT] 1 pastèque envoyée à la préparation
+[1542563615.325509][MAITRE][T-03][IN] 1 pastèque préparée reçue. En cours : banane (T-10), poire (T-7)
+[1542563615.326816][MAITRE][T-02][OUT] 1 pêche envoyée à la préparation
+[1542563618.329272][MAITRE][T-02][IN] 1 pêche préparée reçue. En cours : banane (T-10), poire (T-7)
+[1542563618.331163][MAITRE][T-01][OUT] 1 pêche envoyée à la préparation
+[1542563621.335636][MAITRE][T-01][IN] 1 pêche préparée reçue. En cours : banane (T-10), poire (T-7)
+[1542563621.336811][MAITRE][T-00][OUT] 1 cerise envoyée à la préparation
+[1542563622.338484][MAITRE][T-00][IN] 1 cerise préparée reçue. En cours : banane (T-10), poire (T-7)
+  </div>
+
+  <div id="slaves-messages">
+  [1542563601.296843][E-20238][T-10][IN] 1 banane à préparer reçue
+[1542563601.296963][E-20238][T-10][WORKING] 1 banane en préparation (2s)
+[1542563601.300559][E-20237][T-09][IN] 1 cerise à préparer reçue
+[1542563601.300603][E-20237][T-09][WORKING] 1 cerise en préparation (1s)
+[1542563601.309469][E-20239][T-08][IN] 1 poire à préparer reçue
+[1542563601.309505][E-20239][T-08][WORKING] 1 poire en préparation (2s)
+[1542563602.301193][E-20237][T-09][OUT] 1 cerise prête envoyée
+[1542563602.305375][E-20237][T-07][IN] 1 poire à préparer reçue
+[1542563602.305453][E-20237][T-07][WORKING] 1 poire en préparation (2s)
+[1542563603.297774][E-20238][T-10][ERROR] alerte, une panne ! 1 banane en préparation
+[1542563603.311085][E-20239][T-08][OUT] 1 poire prête envoyée
+[1542563603.312575][E-20239][T-06][IN] 1 banane à préparer reçue
+[1542563603.312608][E-20239][T-06][WORKING] 1 banane en préparation (2s)
+[1542563604.307633][E-20237][T-07][ERROR] alerte, une panne ! 1 poire en préparation
+[1542563605.3144][E-20239][T-06][OUT] 1 banane prête envoyée
+[1542563605.316146][E-20239][T-05][IN] 1 pomme à préparer reçue
+[1542563605.316189][E-20239][T-05][WORKING] 1 pomme en préparation (3s)
+[1542563608.318924][E-20239][T-05][OUT] 1 pomme prête envoyée
+[1542563608.320439][E-20239][T-04][IN] 1 pomme à préparer reçue
+[1542563608.320468][E-20239][T-04][WORKING] 1 pomme en préparation (3s)
+[1542563611.321055][E-20239][T-04][OUT] 1 pomme prête envoyée
+[1542563611.323376][E-20239][T-03][IN] 1 pastèque à préparer reçue
+[1542563611.32343][E-20239][T-03][WORKING] 1 pastèque en préparation (4s)
+[1542563615.324403][E-20239][T-03][OUT] 1 pastèque prête envoyée
+[1542563615.327184][E-20239][T-02][IN] 1 pêche à préparer reçue
+[1542563615.327252][E-20239][T-02][WORKING] 1 pêche en préparation (3s)
+[1542563618.327827][E-20239][T-02][OUT] 1 pêche prête envoyée
+[1542563618.331704][E-20239][T-01][IN] 1 pêche à préparer reçue
+[1542563618.331776][E-20239][T-01][WORKING] 1 pêche en préparation (3s)
+[1542563621.334419][E-20239][T-01][OUT] 1 pêche prête envoyée
+[1542563621.3372][E-20239][T-00][IN] 1 cerise à préparer reçue
+[1542563621.337265][E-20239][T-00][WORKING] 1 cerise en préparation (1s)
+[1542563622.337748][E-20239][T-00][OUT] 1 cerise prête envoyée
+  </div>
+
+  <div id="messages-header">
+    <div class="container">
+        <h2>Maître</h2>
+    </div>
+    <div class="container">
+        <h2>Esclaves</h2>
+    </div>
+  </div>
+  <div id="messages"></div>
+
+  <div id="footer">
+  
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>

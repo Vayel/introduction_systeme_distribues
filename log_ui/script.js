@@ -3,7 +3,7 @@ var LABELS = {
     IN: "»",
     OUT: "«",
     WORKING: "...",
-    ERROR: "!!!",
+    ERROR: "!",
 };
 var TEXT_TO_EMOJI = {
     "pomme": "&#127822;",

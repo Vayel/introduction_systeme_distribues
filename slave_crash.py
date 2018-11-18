@@ -5,7 +5,8 @@ import time
 
 import rpyc
 
-SLAVE_ID = os.getpid()
+from shared import *
+
 CRASH_PROB = 0.6
 
 
@@ -16,9 +17,9 @@ def create_connection():
 
 
 def prepare_fruit(id_, fruit, t):
-    print(f"[{SLAVE_ID}]: 1 {fruit} (id={id_}) en préparation ({t}s)...")
+    log_slave(f"1 {fruit} en préparation ({t}s)", id_, WORKING_LABEL)
     time.sleep(t)
-    return f"1 {fruit} préparé(e)"
+    return f"1 {fruit} préparée"
 
 
 def send_result(conn, task, result):
@@ -43,12 +44,14 @@ def run(conn):
 
     while task:
         id_, fruit, t = task
+        log_slave(f"1 {fruit} à préparer reçue", id_, IN_LABEL)
         prepared_fruit = prepare_fruit(id_, fruit, t)
 
         if may_crash_ and random.random() < CRASH_PROB:
-            print(f"[{SLAVE_ID}]: alerte, une panne ! 1 {fruit} (id={id_}) en préparation.")
+            log_slave(f"alerte, une panne ! 1 {fruit} en préparation", id_, ERROR_LABEL)
             break
 
+        log_slave(f"1 {fruit} prête envoyée", id_, OUT_LABEL)
         send_result(conn, task, prepared_fruit)
         task = ask_task(conn)
 

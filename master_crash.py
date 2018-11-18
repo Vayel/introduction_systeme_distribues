@@ -3,6 +3,8 @@ import time
 
 import rpyc
 
+from shared import *
+
 
 def prepare_distributed(ingredients):
     """Retourne un service RPC appelé par les esclaves pour demander du travail
@@ -27,12 +29,20 @@ def prepare_distributed(ingredients):
                 # Le résultat n'est pas très important dans notre exemple, mais
                 # en pratique il faudrait bien entendu le stocker.
 
-            print(f"[MAITRE] < {result} reçu(e) (task {task[0]}). En cours : {tasks_being_done}")
+            tasks_being_done_formatted = [
+                f"{task[1]} (T-{task[0]})"
+                for task in tasks_being_done
+            ]
+            log_master(
+                f"{result} reçue. En cours : {', '.join(tasks_being_done_formatted)}",
+                task[0],
+                IN_LABEL,
+            )
 
             if not tasks_to_do and not tasks_being_done:
                 end_time = time.time()
                 print("\nLa salade est prête ! Bonne dégustation !")
-                print(f"Temps de préparation : {end_time - start_time:.1f}s.")
+                print(f"Temps de préparation : {end_time - start_time:.1f}s")
 
         def exposed_give_task(self):
             nonlocal start_time
@@ -49,7 +59,7 @@ def prepare_distributed(ingredients):
                 with lock:
                     tasks_being_done.append(task)
                 id_, fruit, _ = task
-                print(f"[MAITRE] > 1 {fruit} (id={id_}) envoyé(e) à la préparation.")
+                log_master(f"1 {fruit} envoyée à la préparation", id_, OUT_LABEL)
 
             return task
 
@@ -57,27 +67,4 @@ def prepare_distributed(ingredients):
 
 
 if __name__ == "__main__":
-    import sys
-    from rpyc.utils.server import ThreadedServer
-
-    INGREDIENTS = [
-        ("pomme", 3),
-        ("pomme", 3),
-        ("pomme", 3),
-        ("fraise", 1),
-        ("fraise", 1),
-        ("banane", 2),
-        ("banane", 2),
-        ("mangue", 4),
-        ("orange", 4),
-        ("orange", 4),
-        ("kiwi", 3),
-        ("kiwi", 3),
-        ("kiwi", 3),
-    ]
-    service = prepare_distributed(INGREDIENTS)
-
-    port = int(sys.argv[1])
-    server = ThreadedServer(service, port=port)
-    print(f"Le maître est accessible à {server.host}:{server.port}.", end="\n\n")
-    server.start()
+    run_master(prepare_distributed)

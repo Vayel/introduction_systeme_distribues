@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8" />
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <div id="master-messages">
+  [1542563168.578297][MAITRE][T-10][OUT] 1 cerise envoyée à la préparation
+[1542563168.606457][MAITRE][T-09][OUT] 1 pêche envoyée à la préparation
+[1542563168.609841][MAITRE][T-08][OUT] 1 pêche envoyée à la préparation
+[1542563171.610877][MAITRE][T-09][IN] 1 pêche préparée reçue. En cours : cerise (T-10), pêche (T-8)
+[1542563171.613067][MAITRE][T-07][OUT] 1 poire envoyée à la préparation
+  </div>
+
+  <div id="slaves-messages">
+  [1542563168.578673][E-19977][T-10][IN] 1 cerise à préparer reçue
+[1542563168.578723][E-19977][T-10][WORKING] 1 cerise en préparation (1s)
+[1542563168.606648][E-19978][T-09][IN] 1 pêche à préparer reçue
+[1542563168.606692][E-19978][T-09][WORKING] 1 pêche en préparation (3s)
+[1542563168.610011][E-19976][T-08][IN] 1 pêche à préparer reçue
+[1542563168.610043][E-19976][T-08][WORKING] 1 pêche en préparation (3s)
+[1542563169.579802][E-19977][T-10][ERROR] alerte, une panne ! 1 cerise en préparation
+[1542563171.609207][E-19978][T-09][OUT] 1 pêche prête envoyée
+[1542563171.6118][E-19976][T-08][ERROR] alerte, une panne ! 1 pêche en préparation
+[1542563171.613864][E-19978][T-07][IN] 1 poire à préparer reçue
+[1542563171.613975][E-19978][T-07][WORKING] 1 poire en préparation (2s)
+[1542563173.616081][E-19978][T-07][ERROR] alerte, une panne ! 1 poire en préparation
+  </div>
+
+  <div id="messages-header">
+    <div class="container">
+        <h2>Maître</h2>
+    </div>
+    <div class="container">
+        <h2>Esclaves</h2>
+    </div>
+  </div>
+  <div id="messages"></div>
+
+  <div id="footer">
+  
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
