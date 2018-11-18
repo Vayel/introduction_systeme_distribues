@@ -30,12 +30,13 @@ h2 {
 }
 
 #messages {
-  max-height: 400px;
+  max-height: 350px;
   overflow: auto;
 }
 
 .message {
   width: 45%;
+  display: flex;
 }
 
 .message.slaves {
@@ -52,9 +53,13 @@ h2 {
   vertical-align: middle;
 }
 
+.message .text {
+  flex-grow: 1;
+}
+
 .message .direction {
   font-size: 20px;
-  width: 20px;
+  width: 30px;
   font-weight: bold;
 }
 
