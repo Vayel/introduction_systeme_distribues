@@ -74,3 +74,18 @@ h2 {
   width: 300px;
   text-align: center;
 }
+
+.emoji {
+  position: relative;
+  top: 2px;
+}
+
+#credits {
+  text-align: right;
+  margin-top: 10px;
+  font-size: 11px;
+}
+
+#credits a {
+  color: #084460;
+}
