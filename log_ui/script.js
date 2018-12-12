@@ -20,12 +20,13 @@ function pad(n, width, z) {
   return n.length >= width ? n : new Array(width - n.length + 1).join(z) + n;
 }
 
+function getEmojiImg(name) {
+    return '<img src="' + TEXT_TO_EMOJI[name] + '" alt="' + name + '" class="emoji" />';
+}
+
 function replaceByEmoji(text) {
     for (var name in TEXT_TO_EMOJI) {
-        text = text.replace(
-            new RegExp(name, "g"),
-            '<img src="' + TEXT_TO_EMOJI[name] + '" alt="' + name + '" class="emoji" />'
-        );
+        text = text.replace(new RegExp(name, "g"), getEmojiImg(name));
     }
     return text;
 }
@@ -115,7 +116,7 @@ function editFooter(footer) {
 
     var emojis = [];
     for (var name in TEXT_TO_EMOJI) {
-        emojis.push(TEXT_TO_EMOJI[name]);
+        emojis.push(getEmojiImg(name));
     } 
 
     var div = document.createElement("div");
